@@ -21,7 +21,7 @@ int searchFile(const char * file,const char*path)
                 strcat(result,"/");
                 strcat(result,file);
                 closedir(d);
-               	execv(result,NULL);
+		execl(result,file,NULL);
             }
         }
         closedir(d);
