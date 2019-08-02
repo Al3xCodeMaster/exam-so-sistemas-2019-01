@@ -12,7 +12,12 @@ int searchFile(const char * file,const char*path)
     d = opendir(path);
 
     if(d)
-    {
+    {   
+        if(access(path,X_OK) == -1)
+        {
+	   fprintf(stderr,"Error, no se puede ejecutar el programa por problema de permisos\n");
+  	   exit(EXIT_FAILURE);
+        }
         while ((dir = readdir(d)) != NULL)
         {
             if(strcmp(dir->d_name,file) == 0)
@@ -20,6 +25,7 @@ int searchFile(const char * file,const char*path)
                 strcpy(result,path);
                 strcat(result,"/");
                 strcat(result,file);
+		printf("%s\n",result);
                 closedir(d);
 		execl(result,file,NULL);
             }
